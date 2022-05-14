@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <style>
+        body{
+            background-color:rgb(20, 1, 37);
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .container {
+            text-align: center;            
+        }
+        
+        .form {
+            width: 100%;
+            font-size: 25px;
+            color: white;
+            
+        }
+
+        .download
+        {
+            color: white;
+            margin-left: 450px;
+            margin-right: 450px;
+        }
+        p{
+            color: teal;
+        }
+
+        input
+        {
+            width: 20%;
+            padding: 10px;
+            font-size: 15px;
+            text-align: center;
+            color: white;
+            /*background-color: rgb(132, 41, 218);
+            box-sizing: border-box;
+             */
+             border: solid 2px;
+        }
+
+
+::-webkit-input-placeholder { /* Edge */
+  color: gray;
+  
+}
+
+:-ms-input-placeholder { /* Internet Explorer */
+  color: gray;
+}
+
+::placeholder {
+  color: gray;
+  /*background-color: antiquewhite;*/
+  text-align: left;
+  border-radius: 5px;
+  
+}
+
+input[type=text] {
+    width: 50%;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+}
+
+input[type=submit] {
+    background:#8800c7; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+}
+
+    </style>
+</head>
+
+<body spellcheck="background-color: rgb(33, 3, 62)">
+
+    <div class="container">
+        <div class="download">
+        <h1>Youtube video downloader</h1>
+        <p>Download video from youtube in HD quality</p>
+    </div>
+
+        <p>{{msg}}</p>
+
+        <form action="" method="post" class="form">
+            {% csrf_token %}
+
+            <!--<label for="link">Enter URL: </label>-->
+            <input type="text" id="link" name="link" placeholder="Enter video link"><br><br>
+            <input type="submit" value="Download">
+        </form>
+    </div>
+
+</body>
+
+</html>
