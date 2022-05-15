@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from pytube import YouTube
 from threading import Thread
-
+from pytube import Playlist
 def download_videos(link):
 	playlist=Playlist(link)
 	for video in playlist.videos:
