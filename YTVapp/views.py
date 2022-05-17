@@ -3,6 +3,7 @@ from django.shortcuts import render
 from pytube import YouTube
 from threading import Thread
 from pytube import Playlist
+from django.contrib import messages
 def download_videos(link):
 	playlist=Playlist(link)
 	for video in playlist.videos:
@@ -18,7 +19,10 @@ def index(request):
 			try:
 				# get link from the html form
 				link = request.POST['link']
+				#check weather link is of video or playlist
+
 				if "playlist" in link:
+					#download video using different thread
 					t1 = Thread(target=download_videos(link))
 					t1.start()
 
@@ -32,9 +36,15 @@ def index(request):
 					stream.download()
 
 				# render HTML page
+				messages.success(request, 'Video downloaded successfully!')
 				return render(request, 'index.html', {'msg':'Video downloaded'})
+				
 			except Exception as e:
-				return render(request, 'index.html', {'msg':'Video not downloaded'+str(e)})
+				messages.error(request, 'Video not downloaded!')
+				return render(request, 'index.html', {'msg':'Video not downloaded'})
+				#+str(e)
 		return render(request, 'index.html', {'msg':''})
-	except:
-		return render(request, "index.html", {"msg":"Sorry something went wrong!"})
+	except Exception as e:
+		messages.error(request, 'Video downloaded successfully!')
+		return render(request, "index.html", {"msg":"Sorry something went wrong!"+str(e)})
+		
