@@ -1,6 +1,13 @@
 
 from django.shortcuts import render
 from pytube import YouTube
+from threading import Thread
+from pytube import Playlist
+def download_videos(link):
+	playlist=Playlist(link)
+	for video in playlist.videos:
+		stream = video.streams.get_highest_resolution()
+		stream.download()
 
 def index(request):
 
@@ -11,13 +18,18 @@ def index(request):
 			try:
 				# get link from the html form
 				link = request.POST['link']
-				video = YouTube(link)
+				if "playlist" in link:
+					t1 = Thread(target=download_videos(link))
+					t1.start()
+
+				else:
+					video = YouTube(link)
 
 				# set video resolution
-				stream = video.streams.get_highest_resolution()
+					stream = video.streams.get_highest_resolution()
 				
 				# download the video 
-				stream.download()
+					stream.download()
 
 				# render HTML page
 				return render(request, 'index.html', {'msg':'Video downloaded'})
